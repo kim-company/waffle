@@ -216,6 +216,8 @@ defmodule Waffle.File do
         case :hackney_headers.content_disposition(value) do
           {_, [{"filename", filename} | _]} ->
             filename
+            |> :unicode.characters_to_list(:latin1)
+            |> to_string()
 
           _ ->
             nil
